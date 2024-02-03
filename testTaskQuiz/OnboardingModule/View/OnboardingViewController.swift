@@ -10,6 +10,7 @@ import SnapKit
 
 final class OnboardingViewController: UIViewController {
     private let presenter: OnboardingPresenter
+    private weak var delegate: SettingsCollectionViewCell?
     
     //MARK: - UI Elements
     private let backgroundImageView: UIImageView = {
@@ -71,7 +72,7 @@ final class OnboardingViewController: UIViewController {
     }
     
     @objc private func nextDidTapped() {
-        presenter.nextButtonDidTapped()
+        presenter.nextButtonDidTapped(currentPage: pageControl.currentPage)
     }
     
     private func setupViews() {
@@ -123,6 +124,8 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
             return cell
         case 2:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SettingsCollectionViewCell", for: indexPath) as! SettingsCollectionViewCell
+            delegate = cell
+
             return cell
         default:
             fatalError("Unexpected indexPath row")
@@ -136,6 +139,15 @@ extension OnboardingViewController: UICollectionViewDelegate, UICollectionViewDa
 }
 
 extension OnboardingViewController: OnboardingViewProtocol {
+    func showLaunchScreen() {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(LaunchViewController(), animated: true)
+    }
+    
+    func checkIfUserCompleted() {
+        presenter.handleUserInfo(userInfo: delegate?.userInfoToSave)
+    }
+    
     func updateView() {
         nextButton.setImage(UIImage(named: ConstantOnboardingData.buttonBackground[pageControl.currentPage]), for: .normal)
         backgroundImageView.image = UIImage(named: ConstantOnboardingData.backgroundImages[pageControl.currentPage])

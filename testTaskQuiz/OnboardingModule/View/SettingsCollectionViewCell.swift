@@ -9,6 +9,12 @@ import UIKit
 import SnapKit
 
 final class SettingsCollectionViewCell: UICollectionViewCell {
+    private var userGender = UserGender.male
+    
+    var userInfoToSave: UserModel {
+        UserModel(name: nameTextField.text, age: Int(ageTextField.text!), gender: userGender)
+    }
+    
     private let nameImageView = UIImageView()
     private let ageImageView = UIImageView()
     private let genderImageView = UIImageView()
@@ -21,6 +27,7 @@ final class SettingsCollectionViewCell: UICollectionViewCell {
         let textField = UITextField()
         textField.textAlignment = .center
         textField.textColor = .white
+        textField.tag = 0
         textField.font = UIFont.font(style: .large)
         textField.isUserInteractionEnabled = true
         textField.attributedPlaceholder = NSAttributedString(
@@ -33,6 +40,7 @@ final class SettingsCollectionViewCell: UICollectionViewCell {
     private let ageTextField: UITextField = {
         let textField = UITextField()
         textField.textAlignment = .center
+        textField.tag = 1
         textField.textColor = .white
         textField.font = UIFont.font(style: .large)
         textField.isUserInteractionEnabled = true
@@ -101,6 +109,17 @@ final class SettingsCollectionViewCell: UICollectionViewCell {
             if let button = subview as? UIButton, button != sender {
                 button.isSelected = false
             }
+        }
+        
+        switch sender.tag {
+        case 0:
+            userGender = .male
+        case 1:
+            userGender = .female
+        case 2:
+            userGender = .other
+        default:
+            break
         }
         
         sender.isSelected = !sender.isSelected

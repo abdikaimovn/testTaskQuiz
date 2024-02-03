@@ -12,6 +12,31 @@ struct OnboardingModel {
     let description: String
 }
 
+struct UserModel {
+    var name: String?
+    var age: Int?
+    var gender: UserGender
+    
+    func isValidData() -> Bool {
+        guard name != nil && age != nil else{
+            return false
+        }
+        
+        return true
+    }
+}
+
+struct UserDefaultsKeys {
+    static let isFirstLaunch = "isFirstLaunch"
+    static let userData = "userData"
+}
+
+enum UserGender {
+    case male
+    case female
+    case other
+}
+
 struct ConstantOnboardingData {
     static let data: [OnboardingModel] = [
         OnboardingModel(title: "LEARN FOOTBALL LIKE A REAL PRO!", description: "Uncover your knowledge of the rules, famous players, become a real expert in this field."),
