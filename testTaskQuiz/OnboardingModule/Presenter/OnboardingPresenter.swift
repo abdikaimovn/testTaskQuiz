@@ -38,8 +38,9 @@ final class OnboardingPresenter {
             return
         }
         
-//        defaults.setValue(userData, forKey: UserDefaultsKeys.userData)
-//        defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch)
+        //Force unwrap так как сохранение идет после проверки на Валидность данных
+        defaults.setValue(userInfo!, forKey: UserDefaultsKeys.userData)
+        defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch)
         
         view?.showLaunchScreen()
     }
