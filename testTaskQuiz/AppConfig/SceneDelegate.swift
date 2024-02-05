@@ -18,11 +18,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func setupWindow(scene: UIScene, rootViewController: UIViewController) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = rootViewController
+        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
     }
     
-    private func showInitialViewController() -> UIViewController {
+    func showInitialViewController() -> UIViewController {
         if checkIsFirstLaunch() {
             return createOnboardingModule()
         } else {
@@ -31,14 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func checkIsFirstLaunch() -> Bool {
-        let defaults = UserDefaults.standard
-        
-        guard let isFirstLaunch = defaults.value(forKey: UserDefaultsKeys.isFirstLaunch) as? Bool, isFirstLaunch else {
-            defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch)
-            return false
-        }
-        
-        return true
+        UserDefaultsManager.checkIsFirstLaunch()
     }
     
     private func createMainModule() -> UIViewController {

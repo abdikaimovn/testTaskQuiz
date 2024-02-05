@@ -15,7 +15,9 @@ final class MainViewController: UIViewController {
     }()
     
     private let homeView = HomeView()
-    private let statisticsView = UIView()
+    
+    private var statisticsView = StatisticsView()
+    
     private let profileView = UIView()
     
     private let backgroundImage: UIImageView = {
@@ -63,6 +65,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
+        
     }
     
     @objc private func homeDidTapped() {

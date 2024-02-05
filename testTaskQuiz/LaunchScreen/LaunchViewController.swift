@@ -35,11 +35,6 @@ final class LaunchViewController: UIViewController {
         return button
     }()
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -51,7 +46,7 @@ final class LaunchViewController: UIViewController {
     }
     
     @objc private func launchDidTapped() {
-        print("tapped")
+        navigationController?.pushViewController(MainViewController(), animated: true)
     }
 
     private func setupView() {

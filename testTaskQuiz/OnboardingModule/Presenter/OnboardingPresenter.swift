@@ -30,6 +30,7 @@ final class OnboardingPresenter {
         default:
             return
         }
+        
         view?.updateView()
     }
     
@@ -39,8 +40,7 @@ final class OnboardingPresenter {
         }
         
         //Force unwrap так как сохранение идет после проверки на Валидность данных
-        defaults.setValue(userInfo!, forKey: UserDefaultsKeys.userData)
-        defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch)
+        UserDefaultsManager.addUser(userModel: userInfo!)
         
         view?.showLaunchScreen()
     }

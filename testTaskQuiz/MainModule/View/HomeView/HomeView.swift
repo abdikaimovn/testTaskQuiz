@@ -24,7 +24,6 @@ final class HomeView: UIView {
     
     private func setupView() {
         backgroundColor = .clear
-        
         setupImageViews()
         
         addSubview(footballView)
