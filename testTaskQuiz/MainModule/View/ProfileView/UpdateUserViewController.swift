@@ -1,14 +1,24 @@
 //
-//  SettingsCollectionViewCell.swift
+//  UpdateUserViewController.swift
 //  testTaskQuiz
 //
-//  Created by Нурдаулет on 01.02.2024.
+//  Created by Нурдаулет on 06.02.2024.
 //
 
 import UIKit
 import SnapKit
 
-final class SettingsCollectionViewCell: UICollectionViewCell {
+final class UpdateUserViewController: UIViewController {
+    private let presenter = UpdateViewPresenter()
+    
+    private let backgroundImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "back3")
+        image.contentMode = .scaleAspectFill
+        image.isUserInteractionEnabled = true
+        return image
+    }()
+    
     private var userGender = UserGender.male
     
     var userInfoToSave: UserModel {
@@ -51,14 +61,24 @@ final class SettingsCollectionViewCell: UICollectionViewCell {
         return textField
     }()
     
-    //MARK: - LifeCycle
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private lazy var applyButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "applyButton"), for: .normal)
+        button.imageView?.contentMode = .scaleToFill
+        button.backgroundColor = .clear
+        button.addTarget(self, action: #selector(applyDidTapped), for: .touchUpInside)
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
         setupViews()
+        presenter.view = self
     }
     
-    required init?(coder: NSCoder) {
-        nil
+    @objc private func applyDidTapped() {
+        presenter.applyDidTapped(userInfo: userInfoToSave)
     }
     
     private func setupLabels() {
@@ -219,28 +239,49 @@ final class SettingsCollectionViewCell: UICollectionViewCell {
         setupImageViews()
         setupGenderImageView()
         
-        addSubview(nameImageView)
+        view.addSubview(backgroundImage)
+        backgroundImage.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        
+        backgroundImage.addSubview(nameImageView)
         nameImageView.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).inset(20)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalToSuperview().dividedBy(3.5)
+            make.height.equalToSuperview().dividedBy(4.5)
         }
         setupNameImageView()
         
-        addSubview(ageImageView)
+        backgroundImage.addSubview(ageImageView)
         ageImageView.snp.makeConstraints { make in
             make.top.equalTo(nameImageView.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalToSuperview().dividedBy(3.5)
+            make.height.equalToSuperview().dividedBy(4.5)
         }
         setupAgeImageView()
         
-        addSubview(genderImageView)
+        backgroundImage.addSubview(genderImageView)
         genderImageView.setContentHuggingPriority(.required, for: .vertical)
         genderImageView.snp.makeConstraints { make in
             make.top.equalTo(ageImageView.snp.bottom).offset(15)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.bottom.equalToSuperview().inset(5)
         }
+        
+        backgroundImage.addSubview(applyButton)
+        applyButton.setContentCompressionResistancePriority(.required, for: .vertical)
+        applyButton.snp.makeConstraints { make in
+            make.top.equalTo(genderImageView.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(2.5)
+            make.height.equalTo(50)
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(10)
+        }
+    }
+}
+
+extension UpdateUserViewController: UpdateViewProtocol {
+    func removeFromSuperview() {
+        NotificationCenter.default.post(name: Notification.Name("UpdateAfterChanges"), object: nil)
+        navigationController?.popViewController(animated: true)
     }
 }

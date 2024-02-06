@@ -11,14 +11,13 @@ final class MainViewController: UIViewController {
     private var mainView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
+        view.isUserInteractionEnabled = true
         return view
     }()
     
     private let homeView = HomeView()
-    
     private var statisticsView = StatisticsView()
-    
-    private let profileView = UIView()
+    private let profileView = ProfileView()
     
     private let backgroundImage: UIImageView = {
         let image = UIImageView()
@@ -65,7 +64,7 @@ final class MainViewController: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        
+        profileView.parentVC = self
     }
     
     @objc private func homeDidTapped() {
@@ -175,7 +174,7 @@ final class MainViewController: UIViewController {
                 make.size.equalTo(70)
             }
             
-            button.layer.shadowColor = UIColor.buttonSelectedShadowColor.cgColor
+            button.layer.shadowColor = UIColor.orangeColor.cgColor
             button.layer.shadowOffset = CGSize(width: 0, height: 0)
             button.layer.shadowOpacity = 1
             button.layer.shadowRadius = 10
@@ -190,4 +189,15 @@ final class MainViewController: UIViewController {
         setupMainView()
     }
     
+}
+
+extension MainViewController: ProfileViewDelegate {
+    func showUpdateUserInfoView() {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(UpdateUserViewController(), animated: true)
+    }
+    
+    func showInitialView() {
+        sceneDelegate?.showInitialViewController()
+    }
 }

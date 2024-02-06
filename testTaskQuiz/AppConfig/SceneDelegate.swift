@@ -8,25 +8,25 @@
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
-    var window: UIWindow?
+    internal var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
-        setupWindow(scene: scene, rootViewController: showInitialViewController())
+        setupWindow(scene: scene)
     }
     
-    private func setupWindow(scene: UIScene, rootViewController: UIViewController) {
+    private func setupWindow(scene: UIScene) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = UINavigationController(rootViewController: rootViewController)
         window?.makeKeyAndVisible()
+        showInitialViewController()
     }
     
-    func showInitialViewController() -> UIViewController {
+    func showInitialViewController() {
         if checkIsFirstLaunch() {
-            return createOnboardingModule()
+            self.window?.rootViewController = UINavigationController(rootViewController: createOnboardingModule())
         } else {
-            return createMainModule()
+            self.window?.rootViewController = UINavigationController(rootViewController: createMainModule())
         }
     }
     

@@ -20,11 +20,25 @@ final class UserDefaultsManager {
     }
     
     static func checkIsFirstLaunch() -> Bool {
-        guard let isFirstLaunch = shared.defaults.value(forKey: UserDefaultsKeys.isFirstLaunch.rawValue) as? Bool, isFirstLaunch else {
-            return false
+        guard let isFirstLaunch = shared.defaults.value(forKey: UserDefaultsKeys.isFirstLaunch.rawValue) as? Bool, !isFirstLaunch else {
+            return true
         }
         
-        return true
+        return false
+    }
+    
+    static func updateUser(user: UserModel) {
+        shared.defaults.setValue(user.name, forKey: UserDefaultsKeys.username.rawValue)
+        shared.defaults.setValue(user.age, forKey: UserDefaultsKeys.userAge.rawValue)
+        shared.defaults.setValue(user.gender.rawValue, forKey: UserDefaultsKeys.userGender.rawValue)
+        shared.defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch.rawValue)
+    }
+    
+    static func deleteAccount() {
+        shared.defaults.removeObject(forKey: UserDefaultsKeys.username.rawValue)
+        shared.defaults.removeObject(forKey: UserDefaultsKeys.userAge.rawValue)
+        shared.defaults.removeObject(forKey: UserDefaultsKeys.userGender.rawValue)
+        shared.defaults.removeObject(forKey: UserDefaultsKeys.isFirstLaunch.rawValue)
     }
     
     static func fetchUser() -> UserModel {

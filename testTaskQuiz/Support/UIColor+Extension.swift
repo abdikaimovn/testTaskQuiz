@@ -33,7 +33,7 @@ extension UIColor {
         UIColor(hex: "#282a2d") ?? .darkGray
     }
 
-    static var buttonSelectedShadowColor: UIColor {
+    static var orangeColor: UIColor {
         UIColor(hex: "#CC8F25") ?? .orange
     }
 }
