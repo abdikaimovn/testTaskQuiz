@@ -8,10 +8,24 @@
 import UIKit
 import SnapKit
 
+protocol HomeViewDelegate: AnyObject {
+    func showQuizModule(with type: ModuleType)
+}
+
 final class HomeView: UIView {
+    weak var parentVC: HomeViewDelegate?
     private let footballView = UIImageView()
     private let basketballView = UIImageView()
     private let mixedView = UIImageView()
+    
+    private let stackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 5
+        stack.backgroundColor = .clear
+        return stack
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,26 +40,13 @@ final class HomeView: UIView {
         backgroundColor = .clear
         setupImageViews()
         
-        addSubview(footballView)
-        footballView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(20)
-            make.leading.trailing.equalToSuperview().inset(5)
-            make.height.equalToSuperview().dividedBy(3.3)
-        }
+        stackView.addArrangedSubview(footballView)
+        stackView.addArrangedSubview(basketballView)
+        stackView.addArrangedSubview(mixedView)
         
-        addSubview(basketballView)
-        basketballView.snp.makeConstraints { make in
-            make.top.equalTo(footballView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(5)
-            make.height.equalToSuperview().dividedBy(3.3)
-        }
-        
-        addSubview(mixedView)
-        mixedView.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(basketballView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(5)
-            make.height.equalToSuperview().dividedBy(3.3)
-            make.bottom.equalToSuperview().inset(20)
+        addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
     }
     
@@ -59,5 +60,23 @@ final class HomeView: UIView {
         footballView.image = UIImage(named: "footballImage")
         basketballView.image = UIImage(named: "basketballImage")
         mixedView.image = UIImage(named: "mixedImage")
+        
+        footballView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(footballViewTapped)))
+        
+        basketballView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(basketballViewTapped)))
+        
+        mixedView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(mixedViewTapped)))
+    }
+    
+    @objc private func footballViewTapped() {
+        parentVC?.showQuizModule(with: .football)
+    }
+    
+    @objc private func basketballViewTapped() {
+        parentVC?.showQuizModule(with: .basketball)
+    }
+    
+    @objc private func mixedViewTapped() {
+        parentVC?.showQuizModule(with: .mixed)
     }
 }

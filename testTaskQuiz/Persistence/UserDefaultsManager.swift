@@ -61,6 +61,28 @@ final class UserDefaultsManager {
         
         return rewards
     }
+    
+    static func fetchCountOfCompletedStudyTopics(topics: [StudyTopic]) -> Int {
+        var count = 0
+        
+        for topic in topics {
+            let isCompleted = shared.defaults.value(forKey: topic.key) as? Bool
+            if isCompleted != nil, isCompleted! == true {
+                count += 1
+            }
+        }
+        
+        return count
+    }
+    
+    static func setCompletedStudyTopic(topic: StudyTopic) {
+        shared.defaults.set(true, forKey: topic.key)
+    }
+    
+    static func fetchCountOfCompletedTestTopics() -> Int {
+        
+        
+    }
 }
 
 struct UserModel {

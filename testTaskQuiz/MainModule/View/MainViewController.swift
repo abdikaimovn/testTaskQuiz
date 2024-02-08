@@ -65,6 +65,7 @@ final class MainViewController: UIViewController {
         
         setupView()
         profileView.parentVC = self
+        homeView.parentVC = self
     }
     
     @objc private func homeDidTapped() {
@@ -199,5 +200,12 @@ extension MainViewController: ProfileViewDelegate {
     
     func showInitialView() {
         sceneDelegate?.showInitialViewController()
+    }
+}
+
+extension MainViewController: HomeViewDelegate {
+    func showQuizModule(with type: ModuleType) {
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.pushViewController(QuizMainViewController(moduleType: type), animated: true)
     }
 }
