@@ -34,11 +34,10 @@ final class UserDefaultsManager {
         shared.defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch.rawValue)
     }
     
-    static func deleteAccount() { 
-        shared.defaults.removeObject(forKey: UserDefaultsKeys.username.rawValue)
-        shared.defaults.removeObject(forKey: UserDefaultsKeys.userAge.rawValue)
-        shared.defaults.removeObject(forKey: UserDefaultsKeys.userGender.rawValue)
-        shared.defaults.removeObject(forKey: UserDefaultsKeys.isFirstLaunch.rawValue)
+    static func deleteAccount() {
+        let domain = Bundle.main.bundleIdentifier!
+        UserDefaults.standard.removePersistentDomain(forName: domain)
+        UserDefaults.standard.synchronize()
     }
     
     static func fetchUser() -> UserModel {
@@ -60,6 +59,10 @@ final class UserDefaultsManager {
         }
         
         return rewards
+    }
+    
+    static func setCompletedReward(for rewardKey: RewardKey) {
+        shared.defaults.set(true, forKey: rewardKey.rawValue)
     }
     
     static func fetchCountOfCompletedStudyTopics(topics: [StudyTopic]) -> Int {
@@ -136,13 +139,22 @@ enum UserDefaultsKeys: String {
 
 struct ConstantRewards {
     static let rewards: [Reward] = [
-        Reward(key: "soccer_players_quiz", name: "Complete the soccer players quiz", isCompleted: nil),
-        Reward(key: "football_players_quiz", name: "Complete the football clubs quiz", isCompleted: nil),
-        Reward(key: "soccer_rules_quiz", name: "Complete the soccer rules quiz", isCompleted: nil),
-        Reward(key: "basketball_players_quiz", name: "Complete the basketball players quiz", isCompleted: nil),
-        Reward(key: "basketball_clubs_quiz", name: "Complete the basketball clubs quiz", isCompleted: nil),
-        Reward(key: "basketball_rules_quiz", name: "Complete the basketball rules quiz", isCompleted: nil)
+        Reward(key: RewardKey.footballPlayersQuiz.rawValue, name: "Complete the soccer players quiz", isCompleted: nil),
+        Reward(key: RewardKey.footballClubsQuiz.rawValue, name: "Complete the football clubs quiz", isCompleted: nil),
+        Reward(key: RewardKey.footballRulesQuiz.rawValue, name: "Complete the soccer rules quiz", isCompleted: nil),
+        Reward(key: RewardKey.basketballPlayersQuiz.rawValue, name: "Complete the basketball players quiz", isCompleted: nil),
+        Reward(key: RewardKey.basketballClubsQuiz.rawValue, name: "Complete the basketball clubs quiz", isCompleted: nil),
+        Reward(key: RewardKey.basketballRulesQuiz.rawValue, name: "Complete the basketball rules quiz", isCompleted: nil)
     ]
+}
+
+enum RewardKey: String {
+    case footballPlayersQuiz = "football_players_quiz"
+    case footballRulesQuiz = "football_rules_quiz"
+    case footballClubsQuiz = "football_clubs_quiz"
+    case basketballPlayersQuiz = "basketball_players_quiz"
+    case basketballRulesQuiz = "basketball_rules_quiz"
+    case basketballClubsQuiz = "basketball_clubs_quiz"
 }
 
 struct Reward {

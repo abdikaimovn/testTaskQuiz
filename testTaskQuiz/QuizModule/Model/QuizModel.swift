@@ -275,6 +275,66 @@ extension Test {
     }
 }
 
+//MARK: - BASKETBALL TEST
+extension Test {
+    //MARK: - BASKETBALL PLAYERS TEST
+    static let basketballPlayers: [TestBlock] = [
+    
+    ]
+    
+    static var basketballPlayersTestCount: Int {
+        return basketballPlayers.count
+    }
+    
+    //MARK: - BASKETBALL RULES TEST
+    static let basketballRules: [TestBlock] = [
+    
+    ]
+    
+    static var basketballRulesTestCount: Int {
+        return basketballRules.count
+    }
+    
+    //MARK: - BASKETBALL CLUBS TEST
+    static let basketballClubs: [TestBlock] = [
+    
+    ]
+    
+    static var basketballClubsTestCount: Int {
+        return basketballClubs.count
+    }
+}
+
+//MARK: - MIXED TEST
+extension Test {
+    //MARK: - MIXED PLAYERS TEST
+    static let mixedPlayers: [TestBlock] = [
+    
+    ]
+    
+    static var mixedPlayersTestCount: Int {
+        return mixedPlayers.count
+    }
+    
+    //MARK: - MIXED RULES TEST
+    static let mixedRules: [TestBlock] = [
+    
+    ]
+    
+    static var mixedRulesTestCount: Int {
+        return mixedRules.count
+    }
+    
+    //MARK: - MIXED CLUBS TEST
+    static let mixedClubs: [TestBlock] = [
+    
+    ]
+    
+    static var mixedClubsTestCount: Int {
+        return mixedClubs.count
+    }
+}
+
 struct TestBlock {
     let key: String
     let test: [TestQuestion]

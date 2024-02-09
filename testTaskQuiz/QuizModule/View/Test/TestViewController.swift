@@ -10,6 +10,7 @@ import SnapKit
 
 final class TestViewController: UIViewController {
     private let presenter: TestViewPresenter
+    private var finishView: FinishView?
     
     private let backgroundImage: UIImageView = {
         let image = UIImageView()
@@ -70,6 +71,13 @@ final class TestViewController: UIViewController {
         return button
     }()
     
+    private let questionNumber: UILabel = {
+        let label = UILabel()
+        label.font = .font(style: .body, size: 25)
+        label.textColor = .white
+        return label
+    }()
+    
     init(presenter: TestViewPresenter) {
         self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
@@ -91,7 +99,6 @@ final class TestViewController: UIViewController {
     @objc private func backButtonDidTapped() {
         navigationController?.popViewController(animated: true)
     }
-    
     
     private func setupViews() {
         view.addSubview(backgroundImage)
@@ -136,6 +143,12 @@ final class TestViewController: UIViewController {
             make.leading.equalTo(view.safeAreaLayoutGuide.snp.leading).offset(20)
             make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
             make.size.equalTo(50)
+        }
+        
+        backgroundImage.addSubview(questionNumber)
+        questionNumber.snp.makeConstraints { make in
+            make.trailing.equalToSuperview().inset(20)
+            make.centerY.equalTo(backButton.snp.centerY)
         }
     }
     
@@ -201,16 +214,37 @@ final class TestViewController: UIViewController {
 }
 
 extension TestViewController: TestViewProtocol {
-    func thatsAll() {
+    func showFinishView(questionDescriptions: [QuestionDescription]) {
         NotificationCenter.default.post(name: Notification.Name("UpdateAfterCompletedStudy"), object: nil)
+        NotificationCenter.default.post(name: Notification.Name("UpdateAfterTestCompletion"), object: nil)
         
+        finishView = FinishView(questionsInfo: questionDescriptions)
+        finishView?.parentVC = self
+        view.addSubview(finishView!)
+        finishView!.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
     }
     
-    func setViewValues(questionModel: TestQuestion) {
+    func setViewValues(questionModel: TestQuestion, completed: String, all: String) {
         variantLabel1.text = questionModel.variant1
         variantLabel2.text = questionModel.variant2
         variantLabel3.text = questionModel.variant3
         variantLabel4.text = questionModel.variant4
         question.text = questionModel.question
+        
+        questionNumber.text = "\(completed)/\(all)"
+    }
+}
+
+extension TestViewController: FinishViewDelegate {
+    func restartDidTapped() {
+        presenter.restartQuizCounter()
+        presenter.restartQuiz()
+        finishView?.removeFromSuperview()
+    }
+    
+    func nextDidTapped() {
+        navigationController?.popViewController(animated: true)
     }
 }

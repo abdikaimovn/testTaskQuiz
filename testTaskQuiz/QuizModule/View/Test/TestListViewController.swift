@@ -49,10 +49,24 @@ class TestListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupNotificationCenter()
     }
     
-    private func setupNotifications() {
-        
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateView),
+            name: Notification.Name("UpdateAfterTestCompletion"),
+            object: nil
+        )
+    }
+    
+    @objc private func updateView() {
+        tableView.reloadData()
     }
     
     @objc private func backButtonDidTapped() {
