@@ -50,6 +50,7 @@ final class StudyViewController: UIViewController {
         view.showsVerticalScrollIndicator = true
         view.showsHorizontalScrollIndicator = false
         view.backgroundColor = .clear
+        view.showsVerticalScrollIndicator = false
         return view
     }()
     

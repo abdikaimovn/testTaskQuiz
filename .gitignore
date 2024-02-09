@@ -1,4 +1,4 @@
-.DS_Store
+
 # Xcode
 *.xcworkspace/xcuserdata/
 *.xcodeproj/xcuserdata/
@@ -10,3 +10,5 @@ xcuserdata/
 *.xcworkspace
 *.xcuserdatad
 *.xcproj
+
+.DS_Store

@@ -34,7 +34,7 @@ final class UserDefaultsManager {
         shared.defaults.setValue(false, forKey: UserDefaultsKeys.isFirstLaunch.rawValue)
     }
     
-    static func deleteAccount() {
+    static func deleteAccount() { 
         shared.defaults.removeObject(forKey: UserDefaultsKeys.username.rawValue)
         shared.defaults.removeObject(forKey: UserDefaultsKeys.userAge.rawValue)
         shared.defaults.removeObject(forKey: UserDefaultsKeys.userGender.rawValue)
@@ -79,9 +79,35 @@ final class UserDefaultsManager {
         shared.defaults.set(true, forKey: topic.key)
     }
     
-    static func fetchCountOfCompletedTestTopics() -> Int {
+    static func fetchCountOfCompletedTestBlocks(testBlocks: [TestBlock]) -> Int {
+        var count = 0
         
+        for testBlock in testBlocks {
+            let isCompleted = shared.defaults.value(forKey: testBlock.key) as? Bool
+            if isCompleted != nil, isCompleted! == true {
+                count += 1
+            }
+        }
         
+        return count
+    }
+    
+    static func fetchCountOfCompletedQuestionsInTest(testBlock: TestBlock) -> Int {
+        let completedQuestionsCount = shared.defaults.object(forKey: testBlock.completedQuestionsCountKey) as? Int
+        
+        if completedQuestionsCount != nil {
+            return completedQuestionsCount!
+        } else {
+            return 0
+        }
+    }
+    
+    static func setCompletedCountOfQuestionInTestBlock(testBlock: TestBlock, count: Int) {
+        shared.defaults.set(count, forKey: testBlock.completedQuestionsCountKey)
+    }
+    
+    static func setCompletedTestBlock(testBlock: TestBlock) {
+        shared.defaults.set(true, forKey: testBlock.key)
     }
 }
 

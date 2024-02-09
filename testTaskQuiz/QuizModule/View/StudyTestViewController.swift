@@ -114,7 +114,7 @@ final class StudyTestViewController: UIViewController {
     }
     
     @objc private func testDidTapped() {
-        
+        presenter.testDidTapped(with: moduleType, and: blockType)
     }
     
     @objc private func updateView() {
@@ -159,6 +159,14 @@ final class StudyTestViewController: UIViewController {
 }
 
 extension StudyTestViewController: StudyTestViewProtocol {
+    func showListTestBlocks(with model: [TestBlock]) {
+        navigationController?.pushViewController(TestListViewController(data: model), animated: true)
+    }
+    
+    func updateTestNumbers(completed: Int, all: Int) {
+        testNumbers.text = "\(completed)/\(all)"
+    }
+    
     func showListStudyTopics(with model: [StudyTopic]) {
         navigationController?.pushViewController(StudyListViewController(data: model), animated: true)
     }

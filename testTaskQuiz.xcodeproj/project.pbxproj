@@ -38,6 +38,10 @@
 		6FA72E1F2B740DFA006A5CAF /* StudyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E1E2B740DFA006A5CAF /* StudyListViewController.swift */; };
 		6FA72E212B74B80B006A5CAF /* StudyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E202B74B80B006A5CAF /* StudyTableViewCell.swift */; };
 		6FA72E232B74EB26006A5CAF /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E222B74EB26006A5CAF /* StudyViewController.swift */; };
+		6FA72E252B755195006A5CAF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E242B755195006A5CAF /* TestViewController.swift */; };
+		6FA72E272B755EB2006A5CAF /* TestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E262B755EB2006A5CAF /* TestListViewController.swift */; };
+		6FA72E292B75604B006A5CAF /* TestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E282B75604B006A5CAF /* TestTableViewCell.swift */; };
+		6FA72E2B2B7568F6006A5CAF /* TestViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA72E2A2B7568F6006A5CAF /* TestViewPresenter.swift */; };
 		6FBB610A2B6807E20046F1B0 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6FBB61092B6807E20046F1B0 /* SnapKit */; };
 		6FBB610C2B6807E20046F1B0 /* SnapKit-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 6FBB610B2B6807E20046F1B0 /* SnapKit-Dynamic */; };
 		6FD370EB2B67FE2A009BE8DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FD370EA2B67FE2A009BE8DF /* AppDelegate.swift */; };
@@ -81,6 +85,10 @@
 		6FA72E1E2B740DFA006A5CAF /* StudyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyListViewController.swift; sourceTree = "<group>"; };
 		6FA72E202B74B80B006A5CAF /* StudyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyTableViewCell.swift; sourceTree = "<group>"; };
 		6FA72E222B74EB26006A5CAF /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
+		6FA72E242B755195006A5CAF /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		6FA72E262B755EB2006A5CAF /* TestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestListViewController.swift; sourceTree = "<group>"; };
+		6FA72E282B75604B006A5CAF /* TestTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewCell.swift; sourceTree = "<group>"; };
+		6FA72E2A2B7568F6006A5CAF /* TestViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewPresenter.swift; sourceTree = "<group>"; };
 		6FD370E72B67FE2A009BE8DF /* testTaskQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testTaskQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FD370EA2B67FE2A009BE8DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FD370EC2B67FE2A009BE8DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -154,11 +162,10 @@
 		6F24E3552B72BE9E00CE2CB0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6FA72E2D2B757577006A5CAF /* Test */,
+				6FA72E2C2B75753B006A5CAF /* Study */,
 				6F24E3592B73AE4500CE2CB0 /* QuizMainViewController.swift */,
 				6F24E35F2B73BE5A00CE2CB0 /* StudyTestViewController.swift */,
-				6FA72E1E2B740DFA006A5CAF /* StudyListViewController.swift */,
-				6FA72E202B74B80B006A5CAF /* StudyTableViewCell.swift */,
-				6FA72E222B74EB26006A5CAF /* StudyViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -167,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				6F24E3612B73C6CA00CE2CB0 /* StudyTestPresenter.swift */,
+				6FA72E2A2B7568F6006A5CAF /* TestViewPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -236,6 +244,26 @@
 				6F8535072B6B812900FC79D6 /* Inter-Regular.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		6FA72E2C2B75753B006A5CAF /* Study */ = {
+			isa = PBXGroup;
+			children = (
+				6FA72E1E2B740DFA006A5CAF /* StudyListViewController.swift */,
+				6FA72E202B74B80B006A5CAF /* StudyTableViewCell.swift */,
+				6FA72E222B74EB26006A5CAF /* StudyViewController.swift */,
+			);
+			path = Study;
+			sourceTree = "<group>";
+		};
+		6FA72E2D2B757577006A5CAF /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				6FA72E242B755195006A5CAF /* TestViewController.swift */,
+				6FA72E262B755EB2006A5CAF /* TestListViewController.swift */,
+				6FA72E282B75604B006A5CAF /* TestTableViewCell.swift */,
+			);
+			path = Test;
 			sourceTree = "<group>";
 		};
 		6FBB61072B6807940046F1B0 /* AppConfig */ = {
@@ -409,7 +437,9 @@
 			files = (
 				6F24E34E2B72649B00CE2CB0 /* UIViewController+Extension.swift in Sources */,
 				6F3A31972B6F7367001F3635 /* UIImage+Extension.swift in Sources */,
+				6FA72E252B755195006A5CAF /* TestViewController.swift in Sources */,
 				6F24E34C2B7246EB00CE2CB0 /* ProfilePresenter.swift in Sources */,
+				6FA72E2B2B7568F6006A5CAF /* TestViewPresenter.swift in Sources */,
 				6F24E3482B71608B00CE2CB0 /* ServicesTableViewCell.swift in Sources */,
 				6F24E3392B70F80E00CE2CB0 /* StatisticsView.swift in Sources */,
 				6F24E33F2B71141500CE2CB0 /* RewardsCollectionCell.swift in Sources */,
@@ -432,8 +462,10 @@
 				6FA72E232B74EB26006A5CAF /* StudyViewController.swift in Sources */,
 				6F8535122B6B9B4200FC79D6 /* OnboardingCollectionViewCell.swift in Sources */,
 				6F24E33D2B70FED500CE2CB0 /* MainModel.swift in Sources */,
+				6FA72E272B755EB2006A5CAF /* TestListViewController.swift in Sources */,
 				6F8535162B6BD52000FC79D6 /* SettingsCollectionViewCell.swift in Sources */,
 				6F24E3522B7276DE00CE2CB0 /* UpdateViewPresenter.swift in Sources */,
+				6FA72E292B75604B006A5CAF /* TestTableViewCell.swift in Sources */,
 				6F3A31A32B6FE785001F3635 /* UserDefaultsManager.swift in Sources */,
 				6FF0DE4E2B6E8AD1007C51F8 /* LaunchViewController.swift in Sources */,
 				6F24E3442B715EAC00CE2CB0 /* ProfileView.swift in Sources */,
@@ -509,7 +541,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -566,7 +598,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -588,8 +620,9 @@
 				INFOPLIST_FILE = testTaskQuiz/AppConfig/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -618,8 +651,9 @@
 				INFOPLIST_FILE = testTaskQuiz/AppConfig/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,7 +10,7 @@ struct Study {
 
 //MARK: - FOOTBALL STUDY
 extension Study {
-    //MARK: - FOOTBALL PLAYERS
+    //MARK: - FOOTBALL PLAYERS STUDY
     static let footballPlayers: [StudyTopic] = [
         StudyTopic(key: "messi_intro",
                    title: "Briefly about Lionel Messi",
@@ -30,7 +30,7 @@ extension Study {
         return footballPlayers.count
     }
     
-    //MARK: - FOOTBALL CLUBS
+    //MARK: - FOOTBALL CLUBS STUDY
     static let footballClubs: [StudyTopic] = [
         StudyTopic(key: "barcelona_intro",
                    title: "Brief Overview of FC Barcelona",
@@ -50,7 +50,7 @@ extension Study {
         return footballClubs.count
     }
     
-    //MARK: - FOOTBALL RULES
+    //MARK: - FOOTBALL RULES STUDY
     static let footballRules: [StudyTopic] = [
         StudyTopic(key: "football_rules_intro",
                    title: "Brief Overview of Football Rules",
@@ -68,6 +68,66 @@ extension Study {
     
     static var footballRulesTopicsCount: Int {
         return footballPlayers.count
+    }
+}
+
+// MARK: - BASKETBALL STUDY
+extension Study {
+    // MARK: - BASKETBALL PLAYERS STUDY
+    static let basketballPlayers: [StudyTopic] = [
+        
+    ]
+    
+    static var basketballPlayersStudyCount: Int {
+        return basketballPlayers.count
+    }
+    
+    // MARK: - BASKETBALL RULES STUDY
+    static let basketballRules: [StudyTopic] = [
+        
+    ]
+    
+    static var basketballRulesStudyCount: Int {
+        return basketballRules.count
+    }
+    
+    // MARK: - BASKETBALL CLUBS STUDY
+    static let basketballClubs: [StudyTopic] = [
+        
+    ]
+    
+    static var basketballClubsStudyCount: Int {
+        return basketballClubs.count
+    }
+}
+
+// MARK: - MIXED STUDY
+extension Study {
+    // MARK: - MIXED PLAYERS STUDY
+    static let mixedPlayers: [StudyTopic] = [
+        
+    ]
+    
+    static var mixedPlayersStudyCount: Int {
+        return mixedPlayers.count
+    }
+    
+    // MARK: - MIXED RULES STUDY
+    static let mixedRules: [StudyTopic] = [
+        
+    ]
+    
+    static var mixedRulesStudyCount: Int {
+        return mixedRules.count
+    }
+    
+    // MARK: - MIXED CLUBS STUDY
+    static let mixedClubs: [StudyTopic] = [
+        
+    ]
+    
+    static var mixedClubsStudyCount: Int {
+        return mixedClubs.count
     }
 }
 
@@ -103,7 +163,8 @@ extension Test {
                     variant3: "Robert Lewandowski",
                     variant4: "Karim Benzema",
                     rightAnswer: "Cristiano Ronaldo")
-            ]),
+            ]
+        ),
         TestBlock(
             key: "football_players_test2",
             test: [
@@ -121,7 +182,7 @@ extension Test {
                     variant2: "Lionel Messi",
                     variant3: "Andrés Iniesta",
                     variant4: "Paolo Maldini",
-                    rightAnswer: "Francisco Gento"
+                    rightAnswer: "Paolo Maldini"
                 ),
                 TestQuestion(
                     question: "Who won the FIFA Men's Player of the Year award in 2021?",
@@ -131,20 +192,96 @@ extension Test {
                     variant4: "Neymar Jr.",
                     rightAnswer: "Lionel Messi"
                 )
-            ])
+            ]
+        )
     ]
     
     static var footballPlayersTestsCount: Int {
         return footballPlayers.count
     }
     
-    //MARK: FOOTBALL CLUBS TEST
+    //MARK: - FOOTBALL CLUBS TEST
+    static let footBallClubs: [TestBlock] = [
+        TestBlock(
+            key: "football_clubs_test1",
+            test: [
+                TestQuestion(
+                    question: "Which football club has won the most UEFA Champions League titles?",
+                    variant1: "Real Madrid",
+                    variant2: "FC Barcelona",
+                    variant3: "Bayern Munich",
+                    variant4: "Liverpool",
+                    rightAnswer: "Real Madrid"
+                ),
+                TestQuestion(
+                    question: "Which football club has the most Premier League titles?",
+                    variant1: "Manchester United",
+                    variant2: "Liverpool",
+                    variant3: "Chelsea",
+                    variant4: "Arsenal",
+                    rightAnswer: "Manchester United"
+                ),
+                TestQuestion(
+                    question: "Which football club won the UEFA Champions League in 2019?",
+                    variant1: "Real Madrid",
+                    variant2: "Liverpool",
+                    variant3: "Bayern Munich",
+                    variant4: "Manchester City",
+                    rightAnswer: "Liverpool"
+                )
+            ]
+        )
+    ]
     
+    static var footbalClubsTestsCount: Int {
+        return footBallClubs.count
+    }
+    
+    // MARK: - FOOTBALL RULES TESTS
+    static var footbalRules: [TestBlock] = [
+        TestBlock(
+            key: "football_rules_test1",
+            test: [
+                TestQuestion(
+                    question: "What is the duration of a standard football match?",
+                    variant1: "90 minutes",
+                    variant2: "120 minutes",
+                    variant3: "80 minutes",
+                    variant4: "60 minutes",
+                    rightAnswer: "90 minutes"
+                ),
+                TestQuestion(
+                    question: "How many players are there on each team in a standard football match?",
+                    variant1: "10",
+                    variant2: "11",
+                    variant3: "12",
+                    variant4: "9",
+                    rightAnswer: "11"
+                ),
+                TestQuestion(
+                    question: "Which player is responsible for guarding the goal?",
+                    variant1: "Goalkeeper",
+                    variant2: "Striker",
+                    variant3: "Midfielder",
+                    variant4: "Defender",
+                    rightAnswer: "Goalkeeper"
+                )
+            ]
+        )
+    ]
+    
+    static var footballRulesTestsCount: Int {
+        return footbalRules.count
+    }
 }
 
 struct TestBlock {
     let key: String
     let test: [TestQuestion]
+    
+    var completedQuestionsCountKey: String {
+        return key + "Count"
+    }
 }
 
 struct TestQuestion {
