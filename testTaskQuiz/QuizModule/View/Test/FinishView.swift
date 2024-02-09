@@ -89,6 +89,39 @@ final class FinishView: UIView {
         return collectionView
     }()
     
+    private let questionsLabel: UILabel = {
+        let label = UILabel()
+        label.font = .font(style: .body, size: 14)
+        label.text = "Questions"
+        label.textColor = .white
+        return label
+    }()
+    
+    private let progressView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
+    private let progress: UIView = {
+        let view = UIView()
+        view.backgroundColor = .orangeColor
+        return view
+    }()
+    
+    private let progressBottomLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    private let progressLabel: UILabel = {
+        let label = UILabel()
+        label.font = .font(style: .body, size: 14)
+        label.textColor = .white
+        return label
+    }()
+    
     init(questionsInfo: [QuestionDescription]) {
         self.questionInfo = questionsInfo
         super.init(frame: .zero)
@@ -105,6 +138,68 @@ final class FinishView: UIView {
     
     @objc private func nextTapped() {
         parentVC?.nextDidTapped()
+    }
+    
+    private func calculateSectionProgress() -> Int {
+        var rightAnswers = 0
+        for i in questionInfo {
+            if i.wasRight {
+                rightAnswers += 1
+            }
+        }
+        
+        let percentage = Double(rightAnswers) / Double(questionInfo.count) * 100
+        return Int(percentage)
+    }
+    
+    private func generateStarStack() -> UIStackView {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.distribution = .fillEqually
+        stack.spacing = 10
+        
+        var stars = [UIImageView]()
+        let countOfGold = calculateNumberOfGoldStars()
+        
+        for i in 1...5 {
+            if i <= countOfGold {
+                stars.append(generateStar(isGold: true))
+            } else {
+                stars.append(generateStar(isGold: false))
+            }
+        }
+        
+        for star in stars {
+            stack.addArrangedSubview(star)
+        }
+        
+        return stack
+    }
+    
+    private func calculateNumberOfGoldStars() -> Int {
+        var rightAnswers = 0
+        for i in questionInfo {
+            if i.wasRight {
+                rightAnswers += 1
+            }
+        }
+        
+        let percentage = Double(rightAnswers) / Double(questionInfo.count) * 100
+        let scale = Int(percentage / 20) // 1/5, 2/5, 3/5
+        
+        return scale
+    }
+    
+    private func generateStar(isGold: Bool) -> UIImageView {
+        let view = UIImageView()
+        view.image = isGold == true ? UIImage(named: "goldStar") : UIImage(named: "star")
+        view.contentMode = .scaleToFill
+        view.backgroundColor = .clear
+        return view
+    }
+    
+    private func setupProgressLabel() {
+        progressLabel.text = "Section completed: \(calculateSectionProgress())%"
     }
     
     private func setupView() {
@@ -151,6 +246,50 @@ final class FinishView: UIView {
             make.height.equalTo(40)
         }
         
+        quizStatisticView.addSubview(questionsLabel)
+        questionsLabel.snp.makeConstraints { make in
+            make.leading.equalTo(collectionView.snp.leading)
+            make.top.equalTo(collectionView.snp.bottom)
+        }
+        
+        quizStatisticView.addSubview(progressView)
+        progressView.snp.makeConstraints { make in
+            make.top.equalTo(questionsLabel.snp.bottom).offset(40)
+            make.leading.equalTo(collectionView.snp.leading)
+            make.trailing.equalTo(collectionView.snp.trailing)
+            make.width.equalToSuperview().dividedBy(1.2)
+            make.height.equalTo(10)
+        }
+        
+        progressView.addSubview(progress)
+        progress.snp.makeConstraints { make in
+            make.top.bottom.leading.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(Double(calculateSectionProgress()) / 100)
+            make.height.equalToSuperview()
+        }
+        
+        progressView.addSubview(progressBottomLine)
+        progressBottomLine.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(progressView.snp.bottom)
+            make.height.equalTo(1)
+        }
+        
+        progressView.addSubview(progressLabel)
+        progressLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.top.equalTo(progressBottomLine.snp.bottom).offset(5)
+        }
+        
+        let starStack = generateStarStack()
+        quizStatisticView.addSubview(starStack)
+        starStack.snp.makeConstraints { make in
+            make.top.equalTo(progressLabel.snp.bottom).offset(40)
+            make.leading.equalTo(collectionView.snp.leading)
+            make.trailing.equalTo(collectionView.snp.trailing)
+            make.height.equalToSuperview().dividedBy(7)
+        }
+        
         backgroundImage.addSubview(restartButton)
         restartButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
@@ -169,12 +308,13 @@ final class FinishView: UIView {
             make.bottom.equalTo(safeAreaLayoutGuide.snp.bottom).inset(20)
             make.top.greaterThanOrEqualTo(quizStatisticView.snp.bottom).offset(20)
         }
+        
+        setupProgressLabel()
     }
 }
 
 extension FinishView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(questionInfo.count)
         return questionInfo.count
     }
     

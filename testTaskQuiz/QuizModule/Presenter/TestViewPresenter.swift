@@ -48,6 +48,7 @@ final class TestViewPresenter {
     
     func restartQuizCounter() {
         counter = 0
+        rightAnswers = 0
         questionsInfo.removeAll()
     }
     
