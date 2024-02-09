@@ -257,7 +257,7 @@ final class FinishView: UIView {
             make.top.equalTo(questionsLabel.snp.bottom).offset(40)
             make.leading.equalTo(collectionView.snp.leading)
             make.trailing.equalTo(collectionView.snp.trailing)
-            make.width.equalToSuperview().dividedBy(1.2)
+            make.width.equalToSuperview().dividedBy(1.5)
             make.height.equalTo(10)
         }
         
@@ -287,7 +287,9 @@ final class FinishView: UIView {
             make.top.equalTo(progressLabel.snp.bottom).offset(40)
             make.leading.equalTo(collectionView.snp.leading)
             make.trailing.equalTo(collectionView.snp.trailing)
-            make.height.equalToSuperview().dividedBy(7)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().dividedBy(1.5)
+            make.height.equalToSuperview().dividedBy(7.5)
         }
         
         backgroundImage.addSubview(restartButton)
