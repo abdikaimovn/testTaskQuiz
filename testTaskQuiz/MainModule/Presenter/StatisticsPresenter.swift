@@ -25,4 +25,8 @@ final class StatisticsPresenter {
         
         view?.showRewards(model: model)
     }
+    
+    func setupPieChart() {
+        
+    }
 }

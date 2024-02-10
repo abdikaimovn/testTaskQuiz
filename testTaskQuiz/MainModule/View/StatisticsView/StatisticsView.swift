@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import DGCharts
 
 final class StatisticsView: UIView {
     private var rewardsModel = [RewardModel]()
@@ -56,6 +57,13 @@ final class StatisticsView: UIView {
         label.numberOfLines = 0
         label.textColor = .white
         return label
+    }()
+    
+    private let pieChart: PieChartView = {
+        let pieChart = PieChartView()
+        pieChart.drawHoleEnabled = false
+        pieChart.usePercentValuesEnabled = true
+        return pieChart
     }()
     
     //MARK: - RIGHT ANSWERS
@@ -138,7 +146,7 @@ final class StatisticsView: UIView {
     
     private let graphView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -152,6 +160,21 @@ final class StatisticsView: UIView {
     
     required init?(coder: NSCoder) {
         nil
+    }
+    
+    private func setupPieChart() {
+        var entries = [ChartDataEntry]()
+        
+        entries.append(PieChartDataEntry(value: 19))
+        entries.append(PieChartDataEntry(value: 5))
+        
+        let set = PieChartDataSet(entries: entries)
+        set.colors = .init(arrayLiteral: .red,.green)
+        
+        let data = PieChartData(dataSet: set)
+        pieChart.data = data
+        pieChart.legend.enabled = false
+        
     }
     
     private func setupView() {
@@ -194,6 +217,12 @@ final class StatisticsView: UIView {
             make.leading.equalToSuperview().inset(20)
             make.top.equalTo(completedQuestionsLabel.snp.bottom).offset(20)
             make.bottom.equalToSuperview().inset(20)
+        }
+        
+        graphView.addSubview(pieChart)
+        pieChart.snp.makeConstraints { make in
+            make.edges.greaterThanOrEqualToSuperview()
+            make.center.equalToSuperview()
         }
         
         graphBackView.addSubview(rightAnswersView)
@@ -264,6 +293,8 @@ final class StatisticsView: UIView {
             make.top.equalTo(wrongAnswersNumber.snp.bottom).offset(10)
             make.bottom.equalToSuperview()
         }
+        
+        setupPieChart()
     }
 }
 
@@ -288,3 +319,4 @@ extension StatisticsView: UICollectionViewDelegate, UICollectionViewDataSource, 
         return cell
     }
 }
+
