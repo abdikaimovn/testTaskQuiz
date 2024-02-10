@@ -53,7 +53,6 @@ final class StatisticsView: UIView {
     private let completedQuestionsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 18)
-        label.text = "NUMBER OF COMPLETED \nQUESTIONS: 24"
         label.numberOfLines = 0
         label.textColor = .white
         return label
@@ -76,14 +75,14 @@ final class StatisticsView: UIView {
     private let rightAnswersDotImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "circle.fill")
-        image.tintColor = .green
+        image.tintColor = .greenColor
         return image
     }()
     
     private let rightAnswersLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "RIGHT \nANSWERS"
+        label.text = "Finished Sections"
         label.numberOfLines = 0
         label.textColor = .white
         return label
@@ -92,7 +91,6 @@ final class StatisticsView: UIView {
     private let rightAnswersNumber: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "19"
         label.textColor = .white
         return label
     }()
@@ -100,7 +98,6 @@ final class StatisticsView: UIView {
     private let rightAnswersPercentage: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "80%"
         label.textColor = .white
         return label
     }()
@@ -115,14 +112,14 @@ final class StatisticsView: UIView {
     private let wrongAnswersDotImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "circle.fill")
-        image.tintColor = .red
+        image.tintColor = .redColor
         return image
     }()
     
     private let wrongAnswersLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "WRONG \nANSWERS"
+        label.text = "Unfinished Sections"
         label.numberOfLines = 0
         label.textColor = .white
         return label
@@ -131,7 +128,6 @@ final class StatisticsView: UIView {
     private let wrongAnswersNumber: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "5"
         label.textColor = .white
         return label
     }()
@@ -139,7 +135,6 @@ final class StatisticsView: UIView {
     private let wrongAnswersPercentage: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(style: .body, size: 16)
-        label.text = "20%"
         label.textColor = .white
         return label
     }()
@@ -152,29 +147,28 @@ final class StatisticsView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
         
         presenter.view = self
         presenter.viewDidLoaded()
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         nil
     }
     
-    private func setupPieChart() {
+    private func setupPieChart(completedSectionValue: Int, incompletedSectionValue: Int) {
         var entries = [ChartDataEntry]()
         
-        entries.append(PieChartDataEntry(value: 19))
-        entries.append(PieChartDataEntry(value: 5))
+        entries.append(PieChartDataEntry(value: Double(completedSectionValue)))
+        entries.append(PieChartDataEntry(value: Double(incompletedSectionValue)))
         
         let set = PieChartDataSet(entries: entries)
-        set.colors = .init(arrayLiteral: .red,.green)
+        set.colors = .init(arrayLiteral: .greenColor, .redColor)
         
         let data = PieChartData(dataSet: set)
         pieChart.data = data
         pieChart.legend.enabled = false
-        
     }
     
     private func setupView() {
@@ -210,12 +204,14 @@ final class StatisticsView: UIView {
         completedQuestionsLabel.snp.makeConstraints { make in
             make.top.equalTo(statisticTitle.snp.bottom).offset(20)
             make.leading.equalTo(statisticTitle.snp.leading)
+            make.trailing.lessThanOrEqualToSuperview().inset(20)
         }
         
         graphBackView.addSubview(graphView)
         graphView.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
             make.top.equalTo(completedQuestionsLabel.snp.bottom).offset(20)
+            make.width.equalToSuperview().dividedBy(2)
             make.bottom.equalToSuperview().inset(20)
         }
         
@@ -291,14 +287,29 @@ final class StatisticsView: UIView {
         wrongAnswersLabel.snp.makeConstraints { make in
             make.leading.equalTo(wrongAnswersNumber.snp.leading)
             make.top.equalTo(wrongAnswersNumber.snp.bottom).offset(10)
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        setupPieChart()
+        presenter.setupPieChart()
     }
 }
 
 extension StatisticsView: StatisticsViewProtocol {
+    func setPieChartValues(finishedSection: Int, unfinishedSection: Int) {
+        let all = finishedSection + unfinishedSection
+        
+        completedQuestionsLabel.text = "NUMBER OF COMPLETED SECTIONS: \(all)"
+        
+        rightAnswersNumber.text = String(finishedSection)
+        wrongAnswersNumber.text = String(unfinishedSection)
+        
+        setupPieChart(completedSectionValue: finishedSection, incompletedSectionValue: unfinishedSection)
+        
+        rightAnswersPercentage.text = "\(Int(Double(finishedSection) / Double(all) * 100))%"
+        wrongAnswersPercentage.text = "\(Int(Double(unfinishedSection) / Double(all) * 100))%"
+    }
+    
     func showRewards(model: [RewardModel]) {
         rewardsModel = model
     }

@@ -36,4 +36,12 @@ extension UIColor {
     static var orangeColor: UIColor {
         UIColor(hex: "#CC8F25") ?? .orange
     }
+    
+    static var greenColor: UIColor {
+        UIColor(hex: "#358231") ?? .green
+    }
+    
+    static var redColor: UIColor {
+        UIColor(hex: "#c72438") ?? .red
+    }
 }

@@ -9,6 +9,7 @@ import UIKit
 
 protocol StatisticsViewProtocol: AnyObject {
     func showRewards(model: [RewardModel])
+    func setPieChartValues(finishedSection: Int, unfinishedSection: Int)
 }
 
 final class StatisticsPresenter {
@@ -27,6 +28,38 @@ final class StatisticsPresenter {
     }
     
     func setupPieChart() {
+        var completedTestBlocks = [Int]()
+        let testBlocks = [
+            Test.footballPlayers,
+            Test.footbalRules,
+            Test.footBallClubs,
+            Test.basketballPlayers,
+            Test.basketballRules,
+            Test.basketballClubs,
+            Test.mixedPlayers,
+            Test.mixedRules,
+            Test.mixedClubs
+        ]
         
+        let countTestBlocks = [
+            Test.footballPlayersTestsCount,
+            Test.footballRulesTestsCount,
+            Test.footbalClubsTestsCount,
+            Test.basketballClubsTestCount,
+            Test.basketballRulesTestCount,
+            Test.basketballClubsTestCount,
+            Test.mixedPlayersTestCount,
+            Test.mixedRulesTestCount,
+            Test.mixedClubsTestCount
+        ] as [Int]
+        
+        for testBlock in testBlocks {
+            completedTestBlocks.append(UserDefaultsManager.fetchCountOfCompletedTestBlocks(testBlocks: testBlock))
+        }
+        
+        let completedCount = completedTestBlocks.reduce(0, +)
+        let allCount = countTestBlocks.reduce(0, +)
+        
+        view?.setPieChartValues(finishedSection: completedCount, unfinishedSection: allCount - completedCount)
     }
 }
